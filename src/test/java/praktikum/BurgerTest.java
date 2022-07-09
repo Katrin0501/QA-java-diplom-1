@@ -2,46 +2,50 @@ package praktikum;
 
 import net.bytebuddy.pool.TypePool;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+
+import org.junit.runners.Parameterized;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
 import static praktikum.IngredientType.FILLING;
 import static praktikum.IngredientType.SAUCE;
 
 @RunWith(MockitoJUnitRunner.class)
 
+
 public class BurgerTest {
-    @Mock
 
-    Bun bun;
-   Ingredient ingredient;
-    List<Ingredient> ingredients;
+    Burger burger;
+
+    @Before
+    public void setup() {
+        burger = new Burger();
+        burger.setBuns(new Bun("", 5));
+
+    }
 
 
     @Test
-    public void testSetBunReturnPrice() {
-
-        Burger burger = new Burger();
-        burger.setBuns(new Bun("",6));
-     Assert.assertEquals(12,burger.getPrice(),0);
+    public void testMoveIngredientReturnPriceBurger() {
+        burger.addIngredient(new Ingredient(SAUCE, "", 5));
+        burger.addIngredient(new Ingredient(FILLING, "", 5));
+        burger.moveIngredient(0,1);
+        assertEquals(20, burger.getPrice(), 0);
 
     }
 
     @Test
-    public void testS(){
-        Burger burger = new Burger();
-        burger.addIngredient(new Ingredient(SAUCE,"",5));
-        assertEquals(5,burger.getPrice());
-
+    public void testRemoveIngredientReturnPriceBurger() {
+        burger.addIngredient(new Ingredient(SAUCE, "", 5));
+        burger.addIngredient(new Ingredient(FILLING, "", 5));
+        burger.removeIngredient(0);
+        assertEquals(15, burger.getPrice(), 0);
 
     }
+
+
 }
