@@ -33,8 +33,8 @@ public class PriceBurgerParamTest {
     @Test
     public void N(){
         Burger burger = new Burger();
-        burger.setBuns(new Bun("",priceBun));
-        burger.addIngredient(new Ingredient(SAUCE, "",priceIngredient));
+        burger.setBuns(new Bun("Fluffy bun",priceBun));
+        burger.addIngredient(new Ingredient(SAUCE, "Spicy",priceIngredient));
         assertEquals(expected, burger.getPrice(), 0);
     }
 

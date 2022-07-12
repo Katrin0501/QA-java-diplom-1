@@ -1,20 +1,13 @@
 package praktikum;
 
-import net.bytebuddy.pool.TypePool;
-import org.junit.Assert;
+
+import jdk.jfr.Description;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import org.junit.runners.Parameterized;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
-
 import static praktikum.IngredientType.FILLING;
 import static praktikum.IngredientType.SAUCE;
-
-@RunWith(MockitoJUnitRunner.class)
 
 
 public class BurgerTest {
@@ -24,28 +17,41 @@ public class BurgerTest {
     @Before
     public void setup() {
         burger = new Burger();
-        burger.setBuns(new Bun("", 5));
+        burger.setBuns(new Bun("Sesame bun", 5));
 
     }
 
 
     @Test
+    @Description("Get the price of a burger (add, remove and move ingredients)")
     public void testMoveIngredientReturnPriceBurger() {
-        burger.addIngredient(new Ingredient(SAUCE, "", 5));
-        burger.addIngredient(new Ingredient(FILLING, "", 5));
-        burger.moveIngredient(0,1);
-        assertEquals(20, burger.getPrice(), 0);
+        burger.addIngredient(new Ingredient(SAUCE, "Chile", 3));
+        burger.addIngredient(new Ingredient(FILLING, "Cutlet", 5));
+        burger.moveIngredient(0, 1);
+        burger.removeIngredient(1);
+        burger.addIngredient(new Ingredient(SAUCE, "Cheesy", 2));
+        assertEquals(17, burger.getPrice(), 0);
 
     }
+
 
     @Test
-    public void testRemoveIngredientReturnPriceBurger() {
-        burger.addIngredient(new Ingredient(SAUCE, "", 5));
-        burger.addIngredient(new Ingredient(FILLING, "", 5));
-        burger.removeIngredient(0);
-        assertEquals(15, burger.getPrice(), 0);
+    @Description("Get a burger check")
+    public void testGetReceiptBurger() {
+        burger.addIngredient(new Ingredient(SAUCE, "Creamy", 5));
+        burger.addIngredient(new Ingredient(FILLING, "Cutlet", 5));
+        String result = "(==== Sesame bun ====)\r\n"
+                + "= sauce Creamy =\r\n"
+                + "= filling Cutlet =\r\n"
+                + "(==== Sesame bun ====)\r\n"
+                + "\r\n" + "Price: 20,000000\r\n";
+        assertEquals(result, burger.getReceipt());
 
     }
 
+    @After
+    public  void end() {
+        System.out.println("All the tests are executed");
 
+    }
 }
