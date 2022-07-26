@@ -3,15 +3,13 @@ package praktikum;
 import jdk.jfr.Description;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import static praktikum.IngredientType.FILLING;
 import static praktikum.IngredientType.SAUCE;
+
 
 public class IngredientTest {
 
@@ -36,7 +34,6 @@ public class IngredientTest {
     public void testGetNameReturnNameIngredient() {
         when(newIngredient.getName()).thenReturn("Yummy");
         assertEquals("Yummy", newIngredient.getName());
-
     }
 
     @Test
